@@ -1,22 +1,26 @@
-#include "arduino_secrets.h"
-
 /* 
-  ÎÏÏÎ±ÏÎ· ÎÏÏÎ±
+  Αόρατη Άρπα
+  Βασισμένο στο https://www.hackster.io/michalin70/build-a-laser-harp-with-a-lidar-and-arduino-a35cdc
 
-  ÎÎ½Î± Arduino ÎºÎ±Î¹ Î­Î½Î± LiDAR ÏÎ¿Ï Î±Î½Î¹ÏÎ½ÎµÏÎ¿ÏÎ½ ÏÎ± ÏÎ­ÏÎ¹Î± ÏÎ¿Ï Î¿ÏÎ³Î±Î½Î¿ÏÎ±Î¯ÎºÏÎ· ÎºÎ±Î¹ Î´Î·Î¼Î¹Î¿ÏÏÎ³Î¿ÏÎ½ Î½ÏÏÎµÏ!
+  Ένα Arduino και ένα LiDAR που ανιχνεύουν τα χέρια του οργανοπαίκτη και δημιουργούν νότες!
 
-  Î£ÏÎ½Î´Î­Î¿ÏÎ¼Îµ ÏÎ·Î½ ÏÎµÎ¹ÏÎ¹ÎºÎ® Î­Î¾Î¿Î´Î¿ (RX/TX) ÎµÎ½ÏÏ RPLIDAR ÏÎµ Î¼Î¹Î± ÏÎµÎ¹ÏÎ¹Î±ÎºÎ® ÎµÎ¯ÏÎ¿Î´Î¿ ÎµÎ½ÏÏ Arduino Mega.
-  Î£ÏÎ½Î´Î­Î¿ÏÎ¼Îµ ÏÎ·Î½ ÎµÎ¯ÏÎ¿Î´Î¿ ÎµÎ»Î­Î³ÏÎ¿Ï ÎºÎ¹Î½Î·ÏÎ®ÏÎ± (CTRL_MOTO) ÏÎ¿Ï LiDAR ÏÎµ Î¼Î¹Î± Î­Î¾Î¿Î´Î¿ PMW (Î® ÎºÎ±ÏÎµÏÎ¸ÎµÎ¯Î±Î½ ÏÏÎ± 5v).
-  Î¤Î¿ LiDAR ÏÏÎ¿ÏÎ¿Î´Î¿ÏÎµÎ¯ÏÎ±Î¹ Î±ÏÏ ÏÎ± 5v ÏÎ¿Ï arduino ÎºÎ±Î¹ ÏÏÏÎ¹ÎºÎ¬ ÏÏÎ½Î´Î­Î¿ÏÎ¼Îµ ÏÎ·Î½ Î³ÎµÎ¹ÏÏÎµÎ¹Ï ÏÎ¿ÏÏ (GND).
-  Î ÏÎ¿ÏÎ¿ÏÎ®: 
-  Î¤Î¿ RPLIDAR Î±ÏÎ±Î¹ÏÎµÎ¯ ÏÎ¿ÏÎ»Î¬ÏÎ¹ÏÏÎ¿Î½ 800mA ÏÏÎ·Î½ ÎµÎºÎºÎ¯Î½Î·ÏÎ·, Î¿ÏÏÏÎµ Î¯ÏÏÏ ÏÎ¿ Î±ÏÎ½ÏÎ¿ÏÎ¯Î½Î¿ ÏÏÎµÎ¹Î±ÏÏÎµÎ¯ ÎµÎ¾ÏÏÎµÏÎ¹ÎºÎ® ÏÏÎ¿ÏÎ¿Î´Î¿ÏÎ¯Î±.
-  Î¤Î± Î³Î¹Î±Î»ÏÏÏÎµÏÎ¬ Î±Î½ÏÎ¹ÎºÎµÎ¯Î¼ÎµÎ½Î± Î´ÎµÎ½ Î±Î½Î¹ÏÎ½ÎµÏÎ¿Î½ÏÎ±Î¹.
-  ÎÎ¹ Î½ÏÏÎµÏ ÏÎ±ÏÎ¬Î³Î¿Î½ÏÎ±Î¹ Î¼Îµ ÏÎ· Î´Î·Î¼Î¹Î¿ÏÏÎ³Î¯Î± ÏÎ·Ï Î±Î½Î¬Î»Î¿Î³Î·Ï Î·Î¼Î¹ÏÎ¿Î½Î¿ÎµÎ¹Î´Î¿ÏÏ ÎºÏÎ¼Î±ÏÎ¿Î¼Î¿ÏÏÎ®Ï,
-  ÏÎ¿Ï ÎµÎ¾Î¬Î³ÎµÏÎ±Î¹ ÏÎµ Î¼Î¹Î± Î±ÎºÎ¯Î´Î± ÎµÎ¾ÏÎ´Î¿Ï Î¼Îµ ÏÏÎ®ÏÎ· ÎÎ¹Î±ÎºÎ¿ÏÏÎ½ (Interrupts).
-  ÎÏÎ¯ÏÎµÎ¹Ï Î· Î­Î½ÏÎ±ÏÎ· ÎºÎ¬Î¸Îµ Î½ÏÏÎ±Ï ÏÎ¸Î¯Î½ÎµÎ¹ ÏÏÎ¿Î½ ÏÏÏÎ½Î¿.
+  Συνδέουμε την σειρική έξοδο (RX/TX) ενός RPLIDAR σε μια σειριακή είσοδο ενός Arduino Mega.
+  Συνδέουμε την είσοδο ελέγχου κινητήρα (CTRL_MOTO) του LiDAR σε μια έξοδο PMW (ή κατευθείαν στα 5v).
+  Το LiDAR τροφοδοτείται από τα 5v του arduino και φυσικά συνδέουμε την γειώσεις τους (GND).
+  Προσοχή: 
+  Το RPLIDAR απαιτεί τουλάχιστον 800mA στην εκκίνηση, οπότε ίσως το αρντουίνο χρειαστεί εξωτερική τροφοδοσία.
+  Τα γιαλυστερά αντικείμενα δεν ανιχνεύονται.
+  Οι νότες παράγονται με τη δημιουργία της ανάλογης ημιτονοειδούς κυματομορφής,
+  που εξάγεται σε μια ακίδα εξόδου με χρήση Διακοπών (Interrupts).
+  Επίσεις η ένταση κάθε νότας φθίνει στον χρόνο.
+  
+  Air Harp, with an Arduino using a Lidar to scan the hands.
+  Connect the RPLIDAR's serial port (RX/TX) to your Arduino board serial.
+  Connect motor control pin (CTRL_MOTO) to an PWM pin, (or straight to 5v).
+  power supply 800mA at startup.  also arduino Gnd and Lidar Gnd have to be connected.
+  REMEMBER It hates glossy surfaces.
+  Includes RPLidar library: https://github.com/robopeak/rplidar_arduino, as file RPLidar.h
 */
-
-// RoboPeak RPLIDAR driver library for Arduino and Arduino-compatible devices
 #include "RPLidar.h"
 
 RPLidar lidar;
@@ -28,48 +32,46 @@ constexpr byte lidarMotorCtrlPin = 3;       // PWM pin controling motor speed
 constexpr byte buzzer_pin = 11;
 
 void setup() {
-  Serial.begin( 500000 );       //2000000 (at least 460800 baud rate to avoid faulty measurements)
-  Serial.println(F("\nSerial to monitor OK"));
-
-  lidar.begin(Serial1);                     // bind the RPLIDAR driver to another hardware serial
-  Serial1.begin( 115200 );                  // Lidar A1M8 baud rate is 115200 
-  pinMode(lidarMotorCtrlPin, OUTPUT);
-  analogWrite(lidarMotorCtrlPin, 255);      // Full rotation speed
-  Serial.println(F("Serial to lidar OK"));
-  delay(1000);
-
-  uint8_t	duty_cycle = 50;    //duty cycle 0..100%, only matters for Triangle and Rectangle
-  uint16_t nDuty = (duty_cycle * num_samples) / 100;
-
+	Serial.begin( 500000 );       //2000000 (at least 460800 baud rate to avoid faulty measurements)
+	Serial.println(F("\nSerial to monitor OK"));
+	
+	lidar.begin(Serial1);                     // bind the RPLIDAR driver to another hardware serial
+	Serial1.begin( 115200 );                  // Lidar A1M8 baud rate is 115200 
+	pinMode(lidarMotorCtrlPin, OUTPUT);
+	analogWrite(lidarMotorCtrlPin, 255);      // Full rotation speed
+	Serial.println(F("Serial to lidar OK"));
+	delay(1000);
+	
+	uint8_t duty_cycle = 50;
+	uint16_t nDuty = (duty_cycle * num_samples) / 100;
+	
 	for (int i = 0; i < num_samples; i++) {
-    // Sinewave: flute or chimes
-		instrument_samples[i] = 26  * sin(20 * PI * (float)i / num_samples);
-    // Serial.println((String)i + " -> " + instrument_samples[i]);
+	instrument_samples[i] = 26  * sin(20 * PI * (float)i / num_samples);
 	}
 
-  // Setup the Timer 1 PWM Waveform Generation, by direct Registers addressing.
-
-  // Port B Data Direction Register
+	// Setup the Timer 1 PWM Waveform Generation, by direct Registers addressing.
+	
+	// Port B Data Direction Register
 	DDRB |= (1 << PB5); // Aka pinMode(11, OUTPUT)
-  // Port B5: OC1A/PCINT5 (Output Compare and PWM Output A for Timer/Counter1 or Pin Change Interrupt 5)
-  // Timer 1 Control Registers A & B
+	// Port B5: OC1A/PCINT5 (Output Compare and PWM Output A for Timer/Counter1 or Pin Change Interrupt 5)
+	// Timer 1 Control Registers A & B
 	TCCR1A = (1 << COM1A1) // Compare Match Output A Mode bits (COMnA): Toggle OC1A on compare match
-	 + (1 << WGM11) + (0 << WGM10); // Waveform Generation Mode bits (WGM): Fast-PWM 9-Bit
+	+ (1 << WGM11) + (0 << WGM10); // Waveform Generation Mode bits (WGM): Fast-PWM 9-Bit
 	TCCR1B = (0 << CS12) + (0 << CS11) + (1 << CS10); // Clock Select bits (CS): No prescaling 
-  // Timer 1 Interrupt Mask Register
+	// Timer 1 Interrupt Mask Register
 	TIMSK1 = (1 << TOIE1); // Timer 1 Overflow Interrupt Enable (TOIE1)
-  // OC1A (Output Compare Register) Frequency = (Arduino Frequency clock: 16MHz) / 256 = 62500 Hz
-  // An overflow occurs every 16 microseconds. Then an interupt.
+	// OC1A (Output Compare Register) Frequency = (Arduino Frequency clock: 16MHz) / 256 = 62500 Hz
+	// An overflow occurs every 16 microseconds. Then an interupt.
 
-  Serial.println(F("ENARKSH BROXOY.."));
+	Serial.println(F("ENARKSH BROXOY.."));
 }
 constexpr uint16_t min_distance = 15;
 constexpr uint16_t max_distance = 40;
 constexpr float harp_sector = 180;
 constexpr float min_angle = 180 - harp_sector / 2;
 constexpr float max_angle = 180 + harp_sector / 2;
-constexpr byte num_strings = 8;                             // 8 ÏÎ¿ÏÎ´Î­Ï
-constexpr float string_sector = harp_sector / num_strings;  // Î³ÏÎ½Î¯Î± Î½ÏÏÎ±Ï = 180Â° / 8 = 22,5Â°
+constexpr byte num_strings = 8;                             // 8 χορδές
+constexpr float string_sector = harp_sector / num_strings;  // γωνία νότας = 180° / 8 = 22,5°
 
 int stringNo;
 float freq_kHz;
@@ -89,7 +91,6 @@ void loop(){
     // Serial.println((String)F("vo: ") + vol );
     return;
   }
-
 
   const auto point = lidar.getCurrentPoint();       // Measurements are NOT ordered.
   const uint16_t distance_cm = point.distance / 10; // distance value from mm to cm unit
@@ -120,7 +121,7 @@ void loop(){
   print_music_note(stringNo);
 
   // Freq in kHz = 0.44 kHz x 2^( n/ (24/2) ), where n is the number of semitones above or below note A4.
-	// freq_kHz = 0.44 * pow(2.0, ((float)string_no + 36 - 49) / 12);
+  // freq_kHz = 0.44 * pow(2.0, ((float)string_no + 36 - 49) / 12);
   freq_kHz = 0.44 * pow( 2.0, (float)(stringNo - 5) / (num_strings / 1) );
   vol = 11;                 // The volume decay down of max volume 10.
   // Serial.print((String)F(" -> ") + (int)(freq_kHz * 1000) + F(" Hz") );
