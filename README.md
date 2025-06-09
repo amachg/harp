@@ -32,3 +32,5 @@ RP-LIDAR, Arduino Mega, επαναφορτιζόμενες μπαταρίες Li
 Το έργο έχει αναπτυχθεί σε εργαλεία ανοιχτού λογισμικού και τα υλικά έχουν ανοικτό και επαναχρησιμοποιούμενο χαρακτήρα.
 
 https://github.com/user-attachments/assets/66db1fa1-fa97-4897-8811-03f7fa130a21
+
+https://github.com/user-attachments/assets/a7cc25a2-1318-4d63-9cc5-3ca89facac6b
